@@ -22,11 +22,10 @@ class ForumController extends AbstractController
     public function index(int $id): Response
     {
         $forum = $this->forumRepository->find($id);
-        $topics = $forum->getTopics();
 
         return $this->render('forum/index.html.twig', [
             'controller_name' => 'ForumController',
-            'topics' => $topics,
+            'forum' => $forum,
         ]);
     }
 }
