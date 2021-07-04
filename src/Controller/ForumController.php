@@ -5,15 +5,15 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\TopicRepository;
+use App\Repository\ForumRepository;
 
 class ForumController extends AbstractController
 {
-    private TopicRepository $topicRepository;
+    private ForumRepository $forumRepository;
 
-    public function __construct(TopicRepository $topicRepository)
+    public function __construct(TopicRepository $forumRepository)
     {
-        $this->topicRepository = $topicRepository;
+        $this->forumRepository = $forumRepository;
     }
 
     /**
@@ -21,8 +21,11 @@ class ForumController extends AbstractController
      */
     public function index(int $id): Response
     {
+        $topics = $this->forumRepository->getByIdWithTopics($id);
+
         return $this->render('forum/index.html.twig', [
             'controller_name' => 'ForumController',
+            'topics' => $topics,
         ]);
     }
 }
