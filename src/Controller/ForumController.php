@@ -11,7 +11,7 @@ class ForumController extends AbstractController
 {
     private ForumRepository $forumRepository;
 
-    public function __construct(TopicRepository $forumRepository)
+    public function __construct(ForumRepository $forumRepository)
     {
         $this->forumRepository = $forumRepository;
     }
@@ -21,7 +21,8 @@ class ForumController extends AbstractController
      */
     public function index(int $id): Response
     {
-        $topics = $this->forumRepository->getByIdWithTopics($id);
+        $forum = $this->forumRepository->find($id);
+        $topics = $forum->getTopics();
 
         return $this->render('forum/index.html.twig', [
             'controller_name' => 'ForumController',
