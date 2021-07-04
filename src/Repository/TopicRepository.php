@@ -19,14 +19,4 @@ class TopicRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Topic::class);
     }
-
-    public function getForumTopics(Integer $forum_id)
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.forum_id = :id')
-            ->setParameter('id', $forum_id)
-            ->getQuery()
-            ->getResult()
-            ;
-    }
 }
