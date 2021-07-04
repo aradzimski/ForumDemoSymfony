@@ -8,9 +8,7 @@
         {% for forum in forums %}
         <tr>
             <td>
-                {# Uncomment this after implementing forum view #}
-                {#<a href="{{ path('app_forum', {id: forum.id}) }}">{{ forum.title }}</a>#}
-                <a>{{ forum.title }}</a>
+                <a href="{{ path('app_forum', {id: forum.id}) }}">{{ forum.title }}</a>
             </td>
         </tr>
         {% endfor %}
