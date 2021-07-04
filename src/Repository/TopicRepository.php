@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Topic;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * @method Topic|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +18,16 @@ class TopicRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Topic::class);
+    }
+
+    public function getForumTopics(Integer $forum_id)
+    {
+        return $this->createQueryBuilder('t')
+            ->andWhere('t.forum_id = :id')
+            ->setParameter('id', $forum_id)
+            ->getQuery()
+            ->getResult()
+            ;
     }
 
     // /**
