@@ -17,7 +17,7 @@ class ForumController extends AbstractController
     }
 
     /**
-     * @Route("/", name="app_forum")
+     * @Route("/forum/{id}/{urltitle}", name="app_forum")
      */
     public function index(int $id): Response
     {
