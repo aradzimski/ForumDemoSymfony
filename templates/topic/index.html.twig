@@ -15,7 +15,7 @@
         <ul class="topic-button-list">
             {% if app.user %}
             <li class="topic-button-container">
-                <a class="topic-button-reply">Reply</a>
+                <a class="topic-button-reply" href="{{ path('app_reply', {id: topic.id, urltitle: topic.urltitle}) }}">Reply</a>
             </li>
             {% endif %}
         </ul>

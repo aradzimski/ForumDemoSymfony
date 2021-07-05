@@ -18,4 +18,16 @@ class PostRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Post::class);
     }
+
+    public function add(Post $post)
+    {
+        $date = new \DateTime();
+
+        $post->setCreated($date);
+        $post->setUpdated($date);
+        $post->setIsEdited(0);
+
+        $this->_em->persist($post);
+        $this->_em->flush();
+    }
 }
