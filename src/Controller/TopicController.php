@@ -7,14 +7,16 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use App\Entity\Post;
+use App\Entity\Topic;
 use App\Repository\TopicRepository;
 use App\Repository\PostRepository;
 
 class TopicController extends AbstractController
 {
-    private TopicRepository $topicRepository;
-    private PostRepository $postRepository;
+private TopicRepository $topicRepository;
+private PostRepository $postRepository;
 
     public function __construct(TopicRepository $topicRepository, PostRepository $postRepository)
     {
@@ -29,6 +31,10 @@ class TopicController extends AbstractController
     {
         $topic = $this->topicRepository->find($id);
 
+        if (!$topic instanceof Topic) {
+            throw new NotFoundHttpException();
+        }
+
         return $this->render('topic/index.html.twig', [
             'controller_name' => 'TopicController',
             'topic' => $topic,
@@ -40,9 +46,13 @@ class TopicController extends AbstractController
      */
     public function reply(Request $request): Response
     {
-        $post = new Post();
         $topic = $this->topicRepository->find($request->get('id'));
 
+        if (!$topic instanceof Topic) {
+            throw new NotFoundHttpException();
+        }
+
+        $post = new Post();
         $post->setUser(
             $this->get('security.token_storage')->getToken()->getUser()
         );
@@ -51,8 +61,7 @@ class TopicController extends AbstractController
         $form = $this->createForm(ReplyType::class, $post);
 
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             $post = $form->getData();
 
             $this->postRepository->add($post);
