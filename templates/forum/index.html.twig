@@ -8,7 +8,7 @@
         {% for topic in forum.topics %}
             <tr>
                 <td>
-                    <a>{{ topic.title }}</a>
+                    <a href="{{ path('app_topic', {id: topic.id, urltitle: topic.urltitle}) }}">{{ topic.title }}</a>
                 </td>
             </tr>
         {% endfor %}
