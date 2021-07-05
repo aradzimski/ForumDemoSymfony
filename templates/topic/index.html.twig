@@ -16,7 +16,7 @@
             <div class="post-authorpanel">
                 <h3 class="post-author-username">{{ post.user.username }}</h3>
                 <ul class="post-author-info">
-                    <li class="post-author-info-postcounter">Posts: postcounter_placeholder</li>
+                    <li class="post-author-info-postcounter">Posts: {{ post.user.posts|length }}</li>
                 </ul>
             </div>
             <div class="post-contentscolumn">
