@@ -1,20 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TopicController!{% endblock %}
+{% block title %}{{ topic.title }}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="topic-header">
+        <h1 class="topic-header-title">{{ topic.title }}</h1>
+        <h3 class="topic-header-description">{{ topic.description }}</h3>
+        <p class="topic-header-info">Created by {{ topic.user.username }}, {{ topic.created|format_datetime(pattern='d MMMM y k:mm') }} in
+            {{ topic.forum.title }}</p>
+    </div>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Adrian/ForumDemoSymfony/src/Controller/TopicController.php'|file_link(0) }}">src/Controller/TopicController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Adrian/ForumDemoSymfony/templates/topic/index.html.twig'|file_link(0) }}">templates/topic/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div class="posts-container">
+        {% for post in topic.posts %}
+        <div class="post">
+            <div class="post-authorpanel">
+                <h3 class="post-author-username">{{ post.user.username }}</h3>
+                <ul class="post-author-info">
+                    <li class="post-author-info-postcounter">Posts: postcounter_placeholder</li>
+                </ul>
+            </div>
+            <div class="post-contentscolumn">
+                <div class="post-creationdate">
+                    {{ post.created|format_datetime(pattern='d MMMM y k:mm') }}
+                </div>
+                <div class="post-contents">
+                    {{ post.contents }}
+                </div>
+                <div class="post-footer">
+                    {% if app.user and app.user.id == post.user.id %}
+                    edit placeholder
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 {% endblock %}
