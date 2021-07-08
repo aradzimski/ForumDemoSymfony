@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ forum.title }}{% endblock %}
+
+{% block body %}
+    <table class="table table-hover">
+        <tbody>
+        {% for topic in forum.topics %}
+            <tr>
+                <td>
+                    <a href="{{ path('app_topic', {id: topic.id, urltitle: topic.urltitle}) }}">{{ topic.title }}</a>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
