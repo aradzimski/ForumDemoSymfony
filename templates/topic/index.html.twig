@@ -6,8 +6,7 @@
     <div class="topic-header">
         <h1 class="topic-header-title">{{ topic.title }}</h1>
         <h3 class="topic-header-description">{{ topic.description }}</h3>
-        <p class="topic-header-info">Created by {{ topic.user.username }}
-            , {{ topic.created|format_datetime(pattern='d MMMM y k:mm') }} in
+        <p class="topic-header-info">Created by {{ topic.user.username }}, {{ topic.created|format_datetime(pattern='d MMMM y k:mm') }} in
             {{ topic.forum.title }}</p>
     </div>
 
