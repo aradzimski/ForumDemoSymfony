@@ -3,6 +3,11 @@
 {% block title %}{{ forum.title }}{% endblock %}
 
 {% block body %}
+
+    {% if app.user %}
+        <a href="{{ path('app_forum_createtopic', {id: forum.id, urltitle: forum.urltitle}) }}">Create topic</a>
+    {% endif %}
+
     <table class="table table-hover">
         <tbody>
         {% for topic in forum.topics %}
