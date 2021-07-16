@@ -51,7 +51,7 @@ class Topic
     private $forum;
 
     /**
-     * @ORM\OneToMany(targetEntity=Post::class, mappedBy="topic", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Post::class, mappedBy="topic", orphanRemoval=true, cascade={"persist"})
      */
     private $posts;
 
